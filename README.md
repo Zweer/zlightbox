@@ -1,4 +1,3 @@
-zlightbox
-=========
+# zLightbox
 
-Yet another lightbox clone
+## Yet another lightbox clone
