@@ -108,6 +108,11 @@
                 regexp: /collegehumor\.com\/video\//i,
                 split: 'collegehumor.com/video/',
                 url: 'http://www.collegehumor.com/e/{ID}'
+            },
+            ustream: {
+                regexp: /ustream\.tv\//i,
+                split: 'ustream.tv/recorded/',
+                url: 'http://www.ustream.tv/embed/recorded/{ID}?v=3&amp;wmode=direct&amp;autoplay=true'
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
