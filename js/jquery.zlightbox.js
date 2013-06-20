@@ -83,12 +83,12 @@
                 split: 'vimeo.com/',
                 url: 'http://player.vimeo.com/video/{ID}?hd=1&amp;autoplay=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1'
             },
-            metacafe: {
+            metaCafe: {
                 reg: /metacafe\.com\/watch/i,
                 split: 'metacafe.com/watch/',
                 url: 'http://www.metacafe.com/embed/{ID}/?ap=1'
             },
-            dailymotion: {
+            dailyMotion: {
                 reg: /dailymotion\.com\/video/i,
                 split: 'dailymotion.com/video/',
                 secondSplit: '_',
@@ -98,6 +98,11 @@
                 regexp: /dai\.ly\//i,
                 split: 'dai.ly/',
                 url: 'http://www.dailymotion.com/embed/video/{ID}?autoPlay=1&forcedQuality=hd720'
+            },
+            collegeHumorNew: {
+                reg: /collegehumor\.com\/video\//i,
+                split: 'collegehumor.com/video/',
+                url: 'http://www.collegehumor.com/e/{ID}'
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
