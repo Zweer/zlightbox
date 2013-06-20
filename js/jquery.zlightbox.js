@@ -11,8 +11,7 @@
         }
 
         this._initElements();
-
-        $window.on('resize.zlightbox', $.proxy(this._setContainerDimensions, this));
+        this._initEvents();
     };
 
     zLightBox.DEFAULT = {
@@ -153,10 +152,10 @@
         this.$description = $(this.options.elements.description);
 
         this.$overlay.appendTo(this.$body).append(this.$container).append(this.$hidden);
+    };
 
-        if (this.options.overlay.hideOnClick) {
-            this.$overlay.on('click.zlightbox', $.proxy(this.hide, this));
-        }
+    zLightBox.prototype._initEvents = function () {
+        $window.on('resize.zlightbox', $.proxy(this._setContainerDimensions, this));
 
         $document.on('keyup.zlightbox', $.proxy(function (event) {
             var keyCode = event.keyCode;
@@ -165,6 +164,10 @@
                 this.hide();
             }
         }, this));
+
+        if (this.options.overlay.hideOnClick) {
+            this.$overlay.on('click.zlightbox', $.proxy(this.hide, this));
+        }
     };
 
     zLightBox.prototype.refreshLinks = function () {
