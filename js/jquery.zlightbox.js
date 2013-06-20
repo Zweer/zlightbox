@@ -146,6 +146,12 @@
                 url: 'http://telly.com/embed.php?guid={ID}&amp;autoplay=1'
             },
             // Maps
+            streetView: {
+                regexp: /maps\.google\.(.*)layer=c/i,
+                split: '?',
+                includeAmp: true,
+                url: "http://maps.google.com/?output=svembed&amp;{ID}"
+            },
             googleMapsV2: {
                 regexp: /maps\.google\.(^\/)*\/maps\/ms/i,
                 split: '?',
