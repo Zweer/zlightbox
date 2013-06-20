@@ -64,7 +64,12 @@
     zLightBox.REGEXP = {
         embed: {
             swf: {
-                reg: /[^\.]\.(swf)\s*$/i
+                regexp: /[^\.]\.(swf)\s*$/i
+            },
+            collegeHumor: {
+                regexp: /collegehumor\.com\/video:/i,
+                split: 'video:',
+                url: "http://www.collegehumor.com/moogaloop/moogaloop.swf?autoplay=true&amp;fullscreen=1&amp;clip_id={ID}"
             }
         },
         iframe: {
@@ -79,17 +84,17 @@
                 url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
             },
             vimeo: {
-                reg: /vimeo\.com/i,
+                regexp: /vimeo\.com/i,
                 split: 'vimeo.com/',
                 url: 'http://player.vimeo.com/video/{ID}?hd=1&amp;autoplay=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1'
             },
             metaCafe: {
-                reg: /metacafe\.com\/watch/i,
+                regexp: /metacafe\.com\/watch/i,
                 split: 'metacafe.com/watch/',
                 url: 'http://www.metacafe.com/embed/{ID}/?ap=1'
             },
             dailyMotion: {
-                reg: /dailymotion\.com\/video/i,
+                regexp: /dailymotion\.com\/video/i,
                 split: 'dailymotion.com/video/',
                 secondSplit: '_',
                 url: 'http://www.dailymotion.com/embed/video/{ID}?autoPlay=1&forcedQuality=hd720'
@@ -99,8 +104,8 @@
                 split: 'dai.ly/',
                 url: 'http://www.dailymotion.com/embed/video/{ID}?autoPlay=1&forcedQuality=hd720'
             },
-            collegeHumorNew: {
-                reg: /collegehumor\.com\/video\//i,
+            collegeHumor: {
+                regexp: /collegehumor\.com\/video\//i,
                 split: 'collegehumor.com/video/',
                 url: 'http://www.collegehumor.com/e/{ID}'
             }
