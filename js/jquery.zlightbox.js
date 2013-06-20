@@ -75,6 +75,11 @@
                 regexp: /v\.wordpress\.com/i,
                 split: 'v.wordpress.com/',
                 url: "http://s0.videopress.com/player.swf?guid={ID}&amp;v=1.01"
+            },
+            vzaar: {
+                regexp: /vzaar\.com\/videos/i,
+                split: 'vzaar.com/videos/',
+                url: "http://view.vzaar.com/{ID}.flashplayer?autoplay=true&amp;border=none"
             }
         },
         iframe: {
