@@ -68,14 +68,14 @@
             }
         },
         iframe: {
-            youtu: {
-                regexp: /youtu\.be\//i,
-                split: 'youtu.be/',
-                url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
-            },
             youtube: {
                 regexp: /youtube\.com\/watch/i,
                 split: 'v=',
+                url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
+            },
+            youtu: {
+                regexp: /youtu\.be\//i,
+                split: 'youtu.be/',
                 url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
             },
             vimeo: {
@@ -87,6 +87,12 @@
                 reg: /metacafe\.com\/watch/i,
                 split: 'metacafe.com/watch/',
                 url: "http://www.metacafe.com/embed/{ID}/?ap=1"
+            },
+            dailymotion: {
+                reg: /dailymotion\.com\/video/i,
+                split: 'dailymotion.com/video/',
+                secondSplit: '_',
+                url: "http://www.dailymotion.com/embed/video/%id%?autoPlay=1&forcedQuality=hd720"
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
@@ -178,6 +184,9 @@
                 var parser = zLightBox.REGEXP.iframe[type] || zLightBox.REGEXP.embed[type];
 
                 href = href.split(parser.split)[parser.index || 1].split('/')[0].split('?')[0];
+                if (parser.secondSplit) {
+                    href = href.split(parser.secondSplit)[0];
+                }
                 if (!parser.includeAmp) {
                     href = href.split('&')[0];
                 }
