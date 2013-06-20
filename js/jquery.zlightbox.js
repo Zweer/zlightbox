@@ -15,8 +15,10 @@
     };
 
     zLightBox.DEFAULT = {
-        gallery: false,
-        infinite: true,
+        gallery: {
+            enable: false,
+            infinite: true
+        },
 
         shortcuts: {
             hide: 27,     // ESC
