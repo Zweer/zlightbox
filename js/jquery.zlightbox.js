@@ -71,25 +71,21 @@
             youtu: {
                 regexp: /youtu\.be\//i,
                 split: 'youtu.be/',
-                index: 1,
                 url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
             },
             youtube: {
                 regexp: /youtube\.com\/watch/i,
                 split: 'v=',
-                index: 1,
                 url: 'http://www.youtube.com/embed/{ID}?autoplay=1&amp;enablejsapi=1'
             },
             vimeo: {
                 reg: /vimeo\.com/i,
                 split: 'vimeo.com/',
-                index: 1,
                 url: "http://player.vimeo.com/video/{ID}?hd=1&amp;autoplay=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1"
             },
             metacafe: {
                 reg: /metacafe\.com\/watch/i,
                 split: 'metacafe.com/watch/',
-                index: 1,
                 url: "http://www.metacafe.com/embed/{ID}/?ap=1"
             }
         },
@@ -181,7 +177,7 @@
             default:
                 var parser = zLightBox.REGEXP.iframe[type] || zLightBox.REGEXP.embed[type];
 
-                href = href.split(parser.split)[parser.index].split('?')[0];
+                href = href.split(parser.split)[parser.index || 1].split('?')[0];
                 if (!parser.includeAmp) {
                     href = href.split('&')[0];
                 }
