@@ -70,6 +70,11 @@
                 regexp: /collegehumor\.com\/video:/i,
                 split: 'video:',
                 url: "http://www.collegehumor.com/moogaloop/moogaloop.swf?autoplay=true&amp;fullscreen=1&amp;clip_id={ID}"
+            },
+            wordpressVideo: {
+                regexp: /v\.wordpress\.com/i,
+                split: 'v.wordpress.com/',
+                url: "http://s0.videopress.com/player.swf?guid={ID}&amp;v=1.01"
             }
         },
         iframe: {
