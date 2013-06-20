@@ -177,7 +177,7 @@
             default:
                 var parser = zLightBox.REGEXP.iframe[type] || zLightBox.REGEXP.embed[type];
 
-                href = href.split(parser.split)[parser.index || 1].split('?')[0];
+                href = href.split(parser.split)[parser.index || 1].split('/')[0].split('?')[0];
                 if (!parser.includeAmp) {
                     href = href.split('&')[0];
                 }
