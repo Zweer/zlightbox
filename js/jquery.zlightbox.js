@@ -113,6 +113,11 @@
                 regexp: /ustream\.tv\//i,
                 split: 'ustream.tv/recorded/',
                 url: 'http://www.ustream.tv/embed/recorded/{ID}?v=3&amp;wmode=direct&amp;autoplay=true'
+            },
+            twitvid: {
+                reg: /twitvid\.com/i,
+                split: 'twitvid.com/',
+                url: "http://www.twitvid.com/player/{ID}"
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
