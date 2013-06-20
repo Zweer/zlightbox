@@ -16,9 +16,13 @@
 
     zLightBox.DEFAULT = {
         gallery: false,
+        infinite: true,
 
         shortcuts: {
-            hide: 27
+            hide: 27,     // ESC
+
+            previous: 37, // Left Arrow
+            next: 39      // Right Arrow
         },
 
         overlay: {
@@ -162,7 +166,12 @@
 
             if (this.options.shortcuts.hide && keyCode == this.options.shortcuts.hide) {
                 this.hide();
+            } else if (this.options.shortcuts.previous && keyCode == this.options.shortcuts.previous) {
+                this.previous();
+            } else if (this.options.shortcuts.next && keyCode == this.options.shortcuts.next) {
+                this.next();
             }
+
         }, this));
 
         if (this.options.overlay.hideOnClick) {
@@ -178,7 +187,17 @@
     };
 
     zLightBox.prototype.show = function (event) {
-        var $target = this.$current = event.preventDefault() || event instanceof $.Event ? $(event.currentTarget) : event;
+        var that = this;
+        var $target = this.$current = event['preventDefault'] && event.preventDefault() || event instanceof $.Event ? $(event.currentTarget) : event;
+
+        this.$elements.each(function (index) {
+            if ($(this).is($target)) {
+                that.currentIndex = index;
+                return false;
+            }
+        });
+
+
 
         this.options.events.onShowStart($target);
 
@@ -352,6 +371,38 @@
                 this.options.events.onHideEnd();
             }, this)
         )
+    };
+
+    zLightBox.prototype.previous = function () {
+        this.move(-1);
+    };
+
+    zLightBox.prototype.next = function () {
+        this.move(1);
+    };
+
+    zLightBox.prototype.move = function (add) {
+        if (!this.options.gallery) {
+            return;
+        }
+
+        this.currentIndex += parseInt(add);
+
+        if (this.currentIndex < 0) {
+            if (this.options.infinite) {
+                this.currentIndex = this.$elements.length - 1;
+            } else {
+                return;
+            }
+        } else if (this.currentIndex == this.$elements.length) {
+            if (this.options.infinite) {
+                this.currentIndex = 0;
+            } else {
+                return;
+            }
+        }
+
+        this.show($(this.$elements[this.currentIndex]));
     };
 
     zLightBox.swfHtmlWrap = function (href, options) {
