@@ -115,9 +115,14 @@
                 url: 'http://www.ustream.tv/embed/recorded/{ID}?v=3&amp;wmode=direct&amp;autoplay=true'
             },
             twitvid: {
-                reg: /twitvid\.com/i,
+                regexp: /twitvid\.com/i,
                 split: 'twitvid.com/',
                 url: "http://www.twitvid.com/player/{ID}"
+            },
+            telly: {
+                regexp: /telly\.com\//i,
+                split: 'telly.com/',
+                url: 'http://telly.com/embed.php?guid={ID}&amp;autoplay=1'
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
