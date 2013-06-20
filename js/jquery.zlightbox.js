@@ -146,6 +146,12 @@
                 url: 'http://telly.com/embed.php?guid={ID}&amp;autoplay=1'
             },
             // Maps
+            bing: {
+                regexp: /bing\.com\/maps/i,
+                split: '?',
+                includeAmp: true,
+                url: "http://www.bing.com/maps/embed/?emid=3ede2bc8-227d-8fec-d84a-00b6ff19b1cb&amp;w={WIDTH}&amp;h={HEIGHT}&amp;{ID}"
+            },
             streetView: {
                 regexp: /maps\.google\.(.*)layer=c/i,
                 split: '?',
@@ -312,6 +318,8 @@
                 } else {
                     this.$description.empty();
                 }
+
+                href = href.replace('{WIDTH}', options.width).replace('{HEIGHT}', options.height);
 
                 if (zLightBox.REGEXP.iframe[type] !== undefined) {
                     $element = $('<iframe>').attr('src', href).attr('frameborder', 0).width(options.width).height(options.height);
