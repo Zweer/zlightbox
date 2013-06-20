@@ -75,6 +75,7 @@
             swf: {
                 regexp: /[^\.]\.(swf)\s*$/i
             },
+            // Videos
             collegeHumor: {
                 regexp: /collegehumor\.com\/video:/i,
                 split: 'video:',
@@ -92,6 +93,7 @@
             }
         },
         iframe: {
+            // Videos
             youtube: {
                 regexp: /youtube\.com\/watch/i,
                 split: 'v=',
@@ -142,6 +144,19 @@
                 regexp: /telly\.com\//i,
                 split: 'telly.com/',
                 url: 'http://telly.com/embed.php?guid={ID}&amp;autoplay=1'
+            },
+            // Maps
+            googleMapsV2: {
+                regexp: /maps\.google\.(^\/)*\/maps\/ms/i,
+                split: '?',
+                includeAmp: true,
+                url: 'https://maps.google.com/maps/ms?output=embed&amp;{ID}'
+            },
+            googleMaps: {
+                regexp: /maps\.google\./i,
+                split: '?',
+                includeAmp: true,
+                url: 'https://maps.google.com/maps?ie=UTF8&amp;{ID}&amp;output=embed'
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
