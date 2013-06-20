@@ -85,6 +85,12 @@
                 split: 'vimeo.com/',
                 index: 1,
                 url: "http://player.vimeo.com/video/{ID}?hd=1&amp;autoplay=1&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1"
+            },
+            metacafe: {
+                reg: /metacafe\.com\/watch/i,
+                split: 'metacafe.com/watch/',
+                index: 1,
+                url: "http://www.metacafe.com/embed/{ID}/?ap=1"
             }
         },
         image: /\.(?:jpg|png|jpeg|gif|bmp|tiff)/i
