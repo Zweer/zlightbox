@@ -1,7 +1,7 @@
 +function ($, window, document, undefined) { "use strict";
 
     var $window   = $(window);
-    //var $document = $(document);
+    var $document = $(document);
     var zLightBox = function(elements, options) {
         this.options = options;
 
@@ -17,6 +17,10 @@
 
     zLightBox.DEFAULT = {
         gallery: false,
+
+        shortcuts: {
+            hide: 27
+        },
 
         overlay: {
             hideOnClick: true
@@ -153,6 +157,14 @@
         if (this.options.overlay.hideOnClick) {
             this.$overlay.on('click.zlightbox', $.proxy(this.hide, this));
         }
+
+        $document.on('keyup.zlightbox', $.proxy(function (event) {
+            var keyCode = event.keyCode;
+
+            if (this.options.shortcuts.hide && keyCode == this.options.shortcuts.hide) {
+                this.hide();
+            }
+        }, this));
     };
 
     zLightBox.prototype.refreshLinks = function () {
