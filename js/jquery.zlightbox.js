@@ -195,11 +195,11 @@
         this.$elements.each(function (index) {
             if ($(this).is($target)) {
                 that.currentIndex = index;
-                return false;
+                return false; // break
             }
+
+            return true; // Added to prevent warnings
         });
-
-
 
         this.options.events.onShowStart($target);
 
@@ -213,6 +213,8 @@
 
                 return false; // break
             }
+
+            return true; // Added to prevent warnings
         };
 
         if (!type || (zLightBox.REGEXP[type] === undefined && zLightBox.REGEXP.iframe[type] === undefined && zLightBox.REGEXP.embed[type] === undefined)) {
