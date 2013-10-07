@@ -65,7 +65,6 @@ module.exports = function (grunt) {
     connect: {
       default: {
         options: {
-          base: './example',
           keepalive: true,
           port: 4000
         }
@@ -82,7 +81,7 @@ module.exports = function (grunt) {
       },
 
       connect: {
-        tasks: ['watch', 'connect']
+        tasks: ['cwatch', 'connect:default']
       }
     },
 
@@ -108,11 +107,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dist-css', ['recess:default', 'recess:min']);
   grunt.registerTask('dist-js', ['uglify:default', 'uglify:min']);
-  grunt.registerTask('dist', ['consurrent:dist']);
+  grunt.registerTask('dist', ['concurrent:dist']);
 
   grunt.registerTask('default', ['clean', 'dist']);
 
-  grunt.registerTask('watch', ['default', 'concurrent:watch']);
+  grunt.registerTask('cwatch', ['default', 'concurrent:watch']);
 
-  grunt.registerTask('connect', ['concurrent:connect']);
+  grunt.registerTask('cconnect', ['concurrent:connect']);
 };
