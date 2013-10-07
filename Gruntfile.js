@@ -60,16 +60,59 @@ module.exports = function (grunt) {
         src: ['js/core.js'],
         dest: 'dist/js/<%= filename %>.min.js'
       }
+    },
+
+    connect: {
+      default: {
+        options: {
+          base: './example',
+          keepalive: true,
+          port: 4000
+        }
+      }
+    },
+
+    concurrent: {
+      dist: {
+        tasks: ['dist-css', 'dist-js']
+      },
+
+      watch: {
+        tasks: ['watch:js', 'watch:css']
+      },
+
+      connect: {
+        tasks: ['watch', 'connect']
+      }
+    },
+
+    watch: {
+      js: {
+        files: ['js/**.js'],
+        tasks: ['dist-js']
+      },
+
+      css: {
+        files: ['less/**.less'],
+        tasks: ['dist-css']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-recess');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-concurrent');
 
   grunt.registerTask('dist-css', ['recess:default', 'recess:min']);
   grunt.registerTask('dist-js', ['uglify:default', 'uglify:min']);
-  grunt.registerTask('dist', ['dist-css', 'dist-js']);
+  grunt.registerTask('dist', ['consurrent:dist']);
 
   grunt.registerTask('default', ['clean', 'dist']);
+
+  grunt.registerTask('watch', ['default', 'concurrent:watch']);
+
+  grunt.registerTask('connect', ['concurrent:connect']);
 };
