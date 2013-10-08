@@ -23,12 +23,3 @@
 .zlightbox-overlay .zlightbox-container > img {
   max-width: 100%;
 }
-
-.zlightbox-overlay .zlightbox-container .zlightbox-description {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  padding: 5px;
-  color: white;
-  background: rgba(0, 0, 0, 0.6);
-}

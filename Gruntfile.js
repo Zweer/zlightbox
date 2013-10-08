@@ -25,7 +25,7 @@ module.exports = function (grunt) {
         banner: '<%= banner %>'
       },
 
-      default: {
+      zlightbox: {
         src: ['less/style.less'],
         dest: 'dist/css/<%= filename %>.css'
       },
@@ -35,7 +35,7 @@ module.exports = function (grunt) {
           compress: true
         },
 
-        src: ['less/style.less'],
+        src: ['<%= recess.zlightbox.src[0] %>'],
         dest: 'dist/css/<%= filename %>.min.css'
       }
     },
@@ -44,28 +44,18 @@ module.exports = function (grunt) {
       options: {
         banner: '<%= banner %>'
       },
-      default: {
-        options: {
-          mangle: false,
-          compress: false,
-          beautify: true
-        },
 
-        src: ['js/core.js'],
-        dest: 'dist/js/<%= filename %>.js'
-      },
-
-      min: {
+      zlightbox: {
         options: {
           compress: true
         },
-        src: ['js/core.js'],
+        src: ['<%= concat.zlightbox.dest %>'],
         dest: 'dist/js/<%= filename %>.min.js'
       }
     },
 
     connect: {
-      default: {
+      zlightbox: {
         options: {
           keepalive: true,
           port: 4000
@@ -83,7 +73,7 @@ module.exports = function (grunt) {
       },
 
       development: {
-        tasks: ['watch:js', 'watch:css', 'connect:default']
+        tasks: ['watch:js', 'watch:css', 'connect:zlightbox']
       }
     },
 
@@ -97,6 +87,25 @@ module.exports = function (grunt) {
         files: ['less/**.less'],
         tasks: ['dist-css']
       }
+    },
+
+    concat: {
+      options: {
+        banner: '<%= banner %><%= grunt.file.read("src/helpers/intro.js") %>\n\n',
+        footer: '\n\n<%= grunt.file.read("src/helpers/outro.js") %>'
+      },
+
+      zlightbox: {
+        src: [
+          'src/overlay.js', 
+          'src/core.js', 
+          'src/defaults.js', 
+          'src/constants.js',
+          'src/statics.js',
+          'src/jquery.js'
+        ],
+        dest: 'dist/js/<%= filename %>.js'
+      }
     }
   });
 
@@ -106,9 +115,10 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('dist-css', ['recess:default', 'recess:min']);
-  grunt.registerTask('dist-js', ['uglify:default', 'uglify:min']);
+  grunt.registerTask('dist-css', ['recess:zlightbox', 'recess:min']);
+  grunt.registerTask('dist-js', ['concat:zlightbox', 'uglify:zlightbox']);
   grunt.registerTask('dist', ['concurrent:dist']);
 
   grunt.registerTask('default', ['clean', 'dist']);
