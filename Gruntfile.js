@@ -82,8 +82,8 @@ module.exports = function (grunt) {
         tasks: ['watch:js', 'watch:css']
       },
 
-      connect: {
-        tasks: ['cwatch', 'connect:default']
+      development: {
+        tasks: ['watch:js', 'watch:css', 'connect:default']
       }
     },
 
@@ -113,7 +113,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['clean', 'dist']);
 
-  grunt.registerTask('cwatch', ['default', 'concurrent:watch']);
-
-  grunt.registerTask('cconnect', ['concurrent:connect']);
+  grunt.registerTask('development', ['default', 'concurrent:watch']);
+  grunt.registerTask('development:connect', ['default', 'concurrent:development']);
 };
