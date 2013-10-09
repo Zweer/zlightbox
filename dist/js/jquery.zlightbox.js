@@ -14,7 +14,7 @@ if (typeof jQuery === 'undefined') {
   var $window   = $(window);
   var $document = $(document);
   var Overlay = function (options) {
-    this.options  = $.extend({},  Overlay.DEFAULT, options);
+    this.options  = $.extend(true, {},  Overlay.DEFAULT, options);
     this.$element = $('<div></div>')
       .addClass(this.options.name)
       .css(this.options.css)
