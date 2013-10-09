@@ -19,7 +19,7 @@
   };
 
   Overlay.prototype.show = function (callback) {
-    if (this.hidden) {
+    if (!this.hidden) {
       return this;
     }
 
@@ -42,13 +42,17 @@
   };
 
   Overlay.prototype.hide = function (callback) {
-    if (!this.hidden) {
+    if (this.hidden) {
       return this;
     }
 
     this.hidden = true;
     this.$element.fadeTo(this.options.animations.out.duration, 0, this.options.animations.out.easing, $.proxy(function () {
-      this.$element.css('opacity', 0);
+      this.$element.css({
+        display: 'none',
+        opacity: 0
+      });
+      
       this.options.onHide();
 
       if ($.isFunction(callback)) {

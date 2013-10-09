@@ -28,7 +28,7 @@
   };
 
   Overlay.prototype.show = function (callback) {
-    if (this.hidden) {
+    if (!this.hidden) {
       return this;
     }
 
@@ -51,13 +51,17 @@
   };
 
   Overlay.prototype.hide = function (callback) {
-    if (!this.hidden) {
+    if (this.hidden) {
       return this;
     }
 
     this.hidden = true;
     this.$element.fadeTo(this.options.animations.out.duration, 0, this.options.animations.out.easing, $.proxy(function () {
-      this.$element.css('opacity', 0);
+      this.$element.css({
+        display: 'none',
+        opacity: 0
+      });
+      
       this.options.onHide();
 
       if ($.isFunction(callback)) {
@@ -102,7 +106,7 @@
     onShow: $.noop,
     onHide: $.noop
   };
-  var ZLightbox = function (elements, options) {
+  var ZLightBox = function (elements, options) {
     this.options = options;
 
     if (elements instanceof $) {
@@ -116,21 +120,21 @@
     this._initEvents();
   };
 
-  ZLightbox.prototype._refreshLinks = function () {
+  ZLightBox.prototype._refreshLinks = function () {
     if (this.$elements instanceof $) {
       this.$elements.off('click.zlightbox');
       this.$elements.on('click.zlightbox', $.proxy(this.show, this));
     }
   };
 
-  ZLightbox.prototype._initElements = function () {
+  ZLightBox.prototype._initElements = function () {
     // TODO: wrapper and overlay.wrapper must be the same
 
     this.overlay = new Overlay(this.options.overlay);
     this.$container = $(this.options.elements.container).appendTo($(this.options.elements.wrapper)).fadeOut(0);
   };
 
-  ZLightbox.prototype._initEvents = function () {
+  ZLightBox.prototype._initEvents = function () {
 
   };
 
@@ -149,7 +153,7 @@
     if (!type) {
       this.$current.data('zlightbox-type', type = ZLightBox.searchType(this.$current.attr('href')));
     }
-
+    
     this.overlay.show();
   };
 
