@@ -11,6 +11,8 @@ if (typeof jQuery === 'undefined') {
 
 (function ($) { 'use strict';
 
+  var $window   = $(window);
+  var $document = $(document);
   var Overlay = function (options) {
     this.options  = $.extend({},  Overlay.DEFAULT, options);
     this.$element = $('<div></div>')

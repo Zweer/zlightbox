@@ -97,6 +97,7 @@ module.exports = function (grunt) {
 
       zlightbox: {
         src: [
+          'src/utils.js',
           'src/overlay.js', 
           'src/core.js', 
           'src/defaults.js', 
