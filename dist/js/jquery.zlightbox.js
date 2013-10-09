@@ -134,10 +134,20 @@ if (typeof jQuery === 'undefined') {
   };
 
   ZLightBox.prototype._initElements = function () {
-    // TODO: wrapper and overlay.wrapper must be the same
+    this.overlay = new Overlay($.extend({ css: { zIndex: this.options.css.zIndex - 10 }, wrapper: this.options.wrapper }, this.options.overlay));
 
-    this.overlay = new Overlay($.extend({ css: { zIndex: this.options.css.zIndex - 10 } }, this.options.overlay));
-    this.$container = $(this.options.elements.container).css(this.options.css).appendTo($(this.options.elements.wrapper)).fadeOut(0);
+    this.$structure = {};
+    this.$structure.$current = $('<div></div>')
+      .appendTo(this.options.wrapper)
+      .addClass('zlightbox-current')
+      .addClass('zlightbox-theme-' + this.options.theme)
+      .css({
+        position: 'fixed',
+        top: '50%',
+        left: '50%'
+      })
+      .css(this.options.css)
+      .fadeOut(0);
   };
 
   ZLightBox.prototype._initEvents = function () {
@@ -179,11 +189,39 @@ if (typeof jQuery === 'undefined') {
     }
 
     this.overlay.show();
+
+    if (type.category === 'image') {
+      this.preload(this.$current, this._show);
+    } else {
+      this._show();
+    }
+  };
+
+  ZLightBox.prototype._show = function () {
+    this.$structure.$current.empty();
+
+    var $element;
+    switch (this.$current.data('zlightbox-type').category) {
+      case 'image':
+        $element = $('<img>').attr('src', this.$current.href || this.$current.attr('href'));
+    }
+
+    this.$structure.$current
+      .append($element)
+      .css({
+        marginLeft: this.$current.image.width / -2,
+        marginTop:  this.$current.image.height / -2
+      })
+      .fadeIn();
   };
 
   ZLightBox.prototype.hide = function (event) {
+    if (event instanceof $.Event) {
+      event.preventDefault();
+    }
 
-    return false;
+    this.$structure.$current.fadeOut();
+    this.overlay.hide();
   };
 
   ZLightBox.prototype.previous = function () {
@@ -194,13 +232,28 @@ if (typeof jQuery === 'undefined') {
 
   };
 
-  ZLightBox.DEFAULT = {
-    elements: {
-      wrapper: $('body'),
+  ZLightBox.prototype.preload = function (image, callback) {
+    var uri, loaded;
 
-      overlay: '<div class="zlightbox-overlay"></div>',
-      container: '<div class="zlightbox-container"></div>'
-    },
+    if (image instanceof $) {
+      uri    = image.attr('href');
+      loaded = image.data('zlightbox-loaded');
+    } else {
+      uri    = image.href;
+      loaded = image.loaded;
+    }
+
+    if (!loaded) {
+      image.image = new Image();
+      $(image.image).load($.proxy(callback, this));
+      image.image.src = uri;
+    } else {
+      callback();
+    }
+  };
+  ZLightBox.DEFAULT = {
+    wrapper: $('body'),
+    theme: 'default',
 
     css: {
       zIndex: 2050
@@ -208,6 +261,13 @@ if (typeof jQuery === 'undefined') {
 
     overlay: {
       hideOnClick: true
+    },
+
+    shortcuts: {
+      hide: 27,     // ESC
+
+      previous: 37, // Left Arrow
+      next: 39      // Right Arrow
     }
   };
 
