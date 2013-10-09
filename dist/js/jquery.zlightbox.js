@@ -130,8 +130,8 @@
   ZLightBox.prototype._initElements = function () {
     // TODO: wrapper and overlay.wrapper must be the same
 
-    this.overlay = new Overlay(this.options.overlay);
-    this.$container = $(this.options.elements.container).appendTo($(this.options.elements.wrapper)).fadeOut(0);
+    this.overlay = new Overlay($.extend({ css: { zIndex: this.options.css.zIndex - 10 } }, this.options.overlay));
+    this.$container = $(this.options.elements.container).css(this.options.css).appendTo($(this.options.elements.wrapper)).fadeOut(0);
   };
 
   ZLightBox.prototype._initEvents = function () {
@@ -153,7 +153,7 @@
     if (!type) {
       this.$current.data('zlightbox-type', type = ZLightBox.searchType(this.$current.attr('href')));
     }
-    
+
     this.overlay.show();
   };
 
@@ -168,6 +168,10 @@
 
       overlay: '<div class="zlightbox-overlay"></div>',
       container: '<div class="zlightbox-container"></div>'
+    },
+
+    css: {
+      zIndex: 2050
     },
 
     overlay: {
