@@ -10,5 +10,5 @@
       }
     }
 
-    throw 'Undefined category/type for uri: "' + href + '"';
+    throw new Error('Undefined category/type for uri: "' + href + '"');
   };
