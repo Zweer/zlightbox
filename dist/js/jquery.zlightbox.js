@@ -5,6 +5,10 @@
  * Copyright 2013 Niccolò Olivieri <flicofloc@gmail.com>
  */
 
+if (typeof jQuery === 'undefined') { 
+  throw new Error('ZLightBox requires jQuery');
+}
+
 (function ($) { 'use strict';
 
   var Overlay = function (options) {
@@ -135,7 +139,25 @@
   };
 
   ZLightBox.prototype._initEvents = function () {
+    $window[0].onorientationchange = function () {
 
+    };
+
+    $window.on('resize.zlightbox', function () {
+
+    });
+
+    $document.on('keydown.zlightbox', $.proxy(function (event) {
+      var keyCode = event.keyCode;
+
+      if (this.options.shortcuts.hide && keyCode == this.options.shortcuts.hide) {
+        this.hide();
+      } else if (this.options.shortcuts.previous && keyCode == this.options.shortcuts.previous) {
+        this.previous();
+      } else if (this.options.shortcuts.next && keyCode == this.options.shortcuts.next) {
+        this.next();
+      }
+    }, this));
   };
 
   ZLightBox.prototype.show = function (event) {
@@ -160,6 +182,14 @@
   ZLightBox.prototype.hide = function (event) {
 
     return false;
+  };
+
+  ZLightBox.prototype.previous = function () {
+
+  };
+
+  ZLightBox.prototype.next = function () {
+
   };
 
   ZLightBox.DEFAULT = {
@@ -300,7 +330,7 @@
       }
     }
 
-    throw 'Undefined category/type for uri: "' + href + '"';
+    throw new Error('Undefined category/type for uri: "' + href + '"');
   };
 
   $.zLightBox = function (elements, options) {

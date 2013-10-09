@@ -27,7 +27,25 @@
   };
 
   ZLightBox.prototype._initEvents = function () {
+    $window[0].onorientationchange = function () {
 
+    };
+
+    $window.on('resize.zlightbox', function () {
+
+    });
+
+    $document.on('keydown.zlightbox', $.proxy(function (event) {
+      var keyCode = event.keyCode;
+
+      if (this.options.shortcuts.hide && keyCode == this.options.shortcuts.hide) {
+        this.hide();
+      } else if (this.options.shortcuts.previous && keyCode == this.options.shortcuts.previous) {
+        this.previous();
+      } else if (this.options.shortcuts.next && keyCode == this.options.shortcuts.next) {
+        this.next();
+      }
+    }, this));
   };
 
   ZLightBox.prototype.show = function (event) {
@@ -52,4 +70,12 @@
   ZLightBox.prototype.hide = function (event) {
 
     return false;
+  };
+
+  ZLightBox.prototype.previous = function () {
+
+  };
+
+  ZLightBox.prototype.next = function () {
+
   };
